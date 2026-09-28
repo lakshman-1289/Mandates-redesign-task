@@ -1,6 +1,6 @@
 # Ezfinanz Mandates - UI/UX Redesign
 
-A production-quality, standalone Flutter implementation of the **Mandates** screen and flow for the **Ezfinanz** financial application.
+A production-quality, standalone Flutter implementation of the **Mandates** screen and flow for the **Ezfinanz** financial application..
 
 ---
 
