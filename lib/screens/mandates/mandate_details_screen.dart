@@ -8,8 +8,9 @@ import '../../widgets/bank_logo_avatar.dart';
 import '../../widgets/mandate_info_row.dart';
 import '../../widgets/mandate_status_badge.dart';
 
-/// Mandate Details Screen displaying the comprehensive mandate parameters
-/// while maintaining strict information hierarchy and clarity.
+/// Mandate Details Screen inspired by the Ezfinanz Loan Details architecture,
+/// featuring a prominent deep-blue Hero card, real bank logos, clear metadata tiles,
+/// and quick clipboard copy.
 class MandateDetailsScreen extends StatelessWidget {
   final Mandate mandate;
 
@@ -26,7 +27,7 @@ class MandateDetailsScreen extends StatelessWidget {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
           onPressed: () => Navigator.pop(context),
           tooltip: 'Back to Mandates',
         ),
@@ -35,85 +36,114 @@ class MandateDetailsScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ==========================================
-            // 1. HERO STATUS & AMOUNT CARD
+            // 1. HERO CARD (Inspired by Ezfinanz Loan Details)
             // ==========================================
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(22),
+              padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: mandate.isActive ? AppColors.border : AppColors.borderSubtle,
-                  width: 1.2,
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF0F52BA),
+                    Color(0xFF0A3B85),
+                  ],
                 ),
-                boxShadow: AppColors.cardShadow,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x220F52BA),
+                    blurRadius: 14,
+                    offset: Offset(0, 6),
+                  ),
+                ],
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Status Badge
-                  MandateStatusBadge(status: status, isLarge: true),
+                  // Top Row: UMRN & Status Badge
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.credit_card_rounded,
+                            size: 16,
+                            color: Colors.white70,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            mandate.mandateType.displayName.toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+                      MandateStatusBadge(status: status, isLarge: true),
+                    ],
+                  ),
+
                   const SizedBox(height: 14),
 
-                  // Mandate Type & Classification
-                  Text(
-                    mandate.mandateType.displayName,
-                    style: AppTypography.screenHeader.copyWith(fontSize: 22),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    mandate.mandateType.subcategory,
-                    style: AppTypography.bodySmall,
-                  ),
-
-                  const SizedBox(height: 18),
-                  const Divider(color: AppColors.borderSubtle),
-                  const SizedBox(height: 16),
-
-                  // Amount
+                  // Amount Label & Prominent Value
                   const Text(
                     'Maximum Transaction Limit',
-                    style: AppTypography.metaLabel,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white70,
+                      letterSpacing: 0.2,
+                    ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 3),
                   Text(
-                    CurrencyFormatter.format(mandate.amount),
-                    style: AppTypography.amountLarge.copyWith(
-                      color: mandate.isActive
-                          ? AppColors.primary
-                          : AppColors.textSecondary,
+                    CurrencyFormatter.formatWithDecimals(mandate.amount),
+                    style: const TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                      letterSpacing: -0.5,
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 14),
 
-                  // Status Description Banner
+                  // Status Description Banner (Translucent Pill)
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     decoration: BoxDecoration(
-                      color: status.backgroundColor,
+                      color: Colors.white.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: status.borderColor, width: 1),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
                     ),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(status.icon, size: 18, color: status.dotColor),
-                        const SizedBox(width: 10),
+                        Icon(status.icon, size: 15, color: Colors.white),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             status.detailedDescription,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: status.textColor,
+                            style: const TextStyle(
+                              fontSize: 11.5,
+                              color: Colors.white,
                               fontWeight: FontWeight.w500,
-                              height: 1.35,
+                              height: 1.25,
                             ),
                           ),
                         ),
@@ -124,23 +154,98 @@ class MandateDetailsScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
 
             // ==========================================
-            // 2. MANDATE IDENTIFIERS
+            // 2. PAYMENT & MANDATE INFORMATION
             // ==========================================
-            const Text(
-              'Mandate Information',
-              style: AppTypography.sectionTitle,
+            Row(
+              children: [
+                const Icon(
+                  Icons.info_outline_rounded,
+                  size: 16,
+                  color: AppColors.primary,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  'Mandate Information',
+                  style: AppTypography.sectionTitle,
+                ),
+              ],
             ),
+            const SizedBox(height: 8),
+
+            // 2-Box Summary Row (Inspired by Ezfinanz info grid)
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.border, width: 0.9),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.currency_rupee_rounded, size: 13, color: AppColors.primary),
+                            const SizedBox(width: 4),
+                            Text('Max Limit', style: AppTypography.metaLabel),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          CurrencyFormatter.format(mandate.amount),
+                          style: AppTypography.amountCard.copyWith(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.border, width: 0.9),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_today_outlined, size: 13, color: AppColors.primary),
+                            const SizedBox(width: 4),
+                            Text('Registered On', style: AppTypography.metaLabel),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          DateFormatter.format(mandate.registrationDate),
+                          style: AppTypography.amountCard.copyWith(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             const SizedBox(height: 10),
+
+            // Detailed Specifications Card
             Container(
               decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.border, width: 1),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.border, width: 0.9),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
               child: Column(
                 children: [
                   MandateInfoRow(
@@ -153,7 +258,7 @@ class MandateDetailsScreen extends StatelessWidget {
                   const Divider(color: AppColors.borderSubtle),
                   MandateInfoRow(
                     label: 'Mandate Type',
-                    value: mandate.mandateType.displayName,
+                    value: '${mandate.mandateType.displayName} (${mandate.mandateType.subcategory})',
                     icon: mandate.mandateType.icon,
                   ),
                   const Divider(color: AppColors.borderSubtle),
@@ -172,40 +277,51 @@ class MandateDetailsScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
 
             // ==========================================
             // 3. BANK & ACCOUNT DETAILS
             // ==========================================
-            const Text(
-              'Bank & Account Details',
-              style: AppTypography.sectionTitle,
+            Row(
+              children: [
+                const Icon(
+                  Icons.account_balance_rounded,
+                  size: 16,
+                  color: AppColors.primary,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  'Bank & Account Details',
+                  style: AppTypography.sectionTitle,
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.border, width: 1),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.border, width: 0.9),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Row(
                       children: [
                         BankLogoAvatar(
                           bankName: mandate.bankName,
                           shortCode: mandate.bankShortCode,
-                          size: 42,
+                          logoAssetPath: mandate.logoAssetPath,
+                          size: 38,
                         ),
-                        const SizedBox(width: 14),
+                        const SizedBox(width: 12),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('Bank Name', style: AppTypography.metaLabel),
+                              Text('Bank Name', style: AppTypography.metaLabel),
                               const SizedBox(height: 2),
                               Text(mandate.bankName, style: AppTypography.bankName),
                             ],
@@ -218,7 +334,7 @@ class MandateDetailsScreen extends StatelessWidget {
                   MandateInfoRow(
                     label: 'Account Number',
                     value: mandate.maskedAccountNumber,
-                    icon: Icons.account_balance_rounded,
+                    icon: Icons.credit_card_outlined,
                   ),
                   const Divider(color: AppColors.borderSubtle),
                   MandateInfoRow(
@@ -236,23 +352,33 @@ class MandateDetailsScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
 
             // ==========================================
             // 4. TIMELINE & VALIDITY
             // ==========================================
-            const Text(
-              'Timeline & Validity',
-              style: AppTypography.sectionTitle,
+            Row(
+              children: [
+                const Icon(
+                  Icons.history_rounded,
+                  size: 16,
+                  color: AppColors.primary,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  'Timeline & Validity',
+                  style: AppTypography.sectionTitle,
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: AppColors.border, width: 1),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.border, width: 0.9),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
               child: Column(
                 children: [
                   MandateInfoRow(
@@ -273,14 +399,14 @@ class MandateDetailsScreen extends StatelessWidget {
                     MandateInfoRow(
                       label: 'Last Debited',
                       value: DateFormatter.formatFull(mandate.lastDebitedDate!),
-                      icon: Icons.history_rounded,
+                      icon: Icons.payment_rounded,
                     ),
                   ],
                 ],
               ),
             ),
 
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
           ],
         ),
       ),

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  // Brand Primaries (Fintech Deep Blue)
-  static const Color primary = Color(0xFF0F52BA); // Sapphire/Financial Blue
-  static const Color primaryDark = Color(0xFF0A377E);
+  // Brand Primaries (Vivid Fintech Sapphire Blue)
+  static const Color primary = Color(0xFF0B57D0); // Vivid Financial Sapphire
+  static const Color primaryDark = Color(0xFF0842A0);
   static const Color primaryLight = Color(0xFFEBF3FD);
   static const Color primarySurface = Color(0xFFF0F6FE);
 
@@ -25,11 +25,11 @@ class AppColors {
   static const Color borderSubtle = Color(0xFFEDF2F7);
   static const Color divider = Color(0xFFE2E8F0);
 
-  // Typography
-  static const Color textPrimary = Color(0xFF1E293B); // Slate 800 - high contrast
-  static const Color textSecondary = Color(0xFF64748B); // Slate 500
-  static const Color textTertiary = Color(0xFF94A3B8); // Slate 400
-  static const Color textDisabled = Color(0xFFCBD5E1);
+  // Typography - High Contrast & Vivid Brightness
+  static const Color textPrimary = Color(0xFF0F172A); // Slate 900 - ultra crisp, rich black/navy
+  static const Color textSecondary = Color(0xFF334155); // Slate 700 - sharp, vivid, highly readable
+  static const Color textTertiary = Color(0xFF64748B); // Slate 500 - clear & bright labels, never dim
+  static const Color textDisabled = Color(0xFF94A3B8);
 
   // Status: ACTIVE (Emerald Green)
   static const Color statusActiveText = Color(0xFF065F46);

@@ -47,6 +47,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'As and when presented',
     purpose: 'Ezfinanz Personal Loan EMI',
     bankShortCode: 'SBI',
+    logoAssetPath: 'assets/logos/SBI-Logo.jpg',
     expiryDate: DateTime(2032, 11, 21),
     lastDebitedDate: DateTime(2026, 9, 5),
   );
@@ -65,6 +66,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Consumer Durable EMI',
     bankShortCode: 'HDFC',
+    logoAssetPath: 'assets/logos/hdfc_logo.jpeg',
     expiryDate: DateTime(2028, 4, 14),
     lastDebitedDate: DateTime(2026, 9, 10),
   );
@@ -83,6 +85,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Medical Loan EMI',
     bankShortCode: 'ICICI',
+    logoAssetPath: 'assets/logos/ICICI-Bank-Logo.png',
     expiryDate: DateTime(2026, 8, 29),
     lastDebitedDate: DateTime(2026, 9, 1),
   );
@@ -101,6 +104,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'As and when presented',
     purpose: 'Education Loan Autopay',
     bankShortCode: 'AXIS',
+    logoAssetPath: 'assets/logos/axis-logo.png',
     expiryDate: DateTime(2026, 6, 9),
     lastDebitedDate: DateTime(2024, 3, 15),
   );
@@ -119,6 +123,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Appliance Loan Mandate',
     bankShortCode: 'KOTAK',
+    logoAssetPath: 'assets/logos/kotak-mahindra-bank-logo.png',
     expiryDate: DateTime(2023, 1, 13),
     lastDebitedDate: DateTime(2023, 1, 5),
   );
@@ -137,6 +142,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'As and when presented',
     purpose: 'Business Equipment Loan',
     bankShortCode: 'BOB',
+    logoAssetPath: 'assets/logos/Bank-of-Baroda-logo.jpg',
     expiryDate: DateTime(2025, 3, 4),
     lastDebitedDate: DateTime(2023, 11, 20),
   );
@@ -155,6 +161,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Two Wheeler Loan EMI',
     bankShortCode: 'PNB',
+    logoAssetPath: 'assets/logos/punjab-national-bank-pnb-bank-logo.jpg',
     expiryDate: DateTime(2027, 2, 17),
     lastDebitedDate: DateTime(2026, 9, 18),
   );
@@ -173,6 +180,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Consumer Electronic Loan',
     bankShortCode: 'CANARA',
+    logoAssetPath: 'assets/logos/canara_logo.png',
     expiryDate: DateTime(2022, 9, 11),
     lastDebitedDate: DateTime(2022, 8, 12),
   );
@@ -191,6 +199,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Home Renovation EMI',
     bankShortCode: 'UNION',
+    logoAssetPath: 'assets/logos/union_logo.jpeg',
     expiryDate: DateTime(2024, 10, 7),
     lastDebitedDate: DateTime(2023, 6, 8),
   );
@@ -209,6 +218,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'As and when presented',
     purpose: 'Commercial Equipment EMI',
     bankShortCode: 'IDFC',
+    logoAssetPath: 'assets/logos/idfc-logo.png',
     expiryDate: DateTime(2029, 5, 19),
     lastDebitedDate: DateTime(2026, 9, 20),
   );
@@ -227,6 +237,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'Monthly',
     purpose: 'Fitness Equipment EMI',
     bankShortCode: 'YES',
+    logoAssetPath: 'assets/logos/yes-bank-logo.png',
     expiryDate: DateTime(2025, 1, 9),
     lastDebitedDate: DateTime(2024, 8, 10),
   );
@@ -245,6 +256,7 @@ class MockMandateRepository implements MandateRepository {
     frequency: 'As and when presented',
     purpose: 'SME Working Capital Loan',
     bankShortCode: 'INDUS',
+    logoAssetPath: 'assets/logos/indusindBank-logo.jpeg',
     expiryDate: DateTime(2030, 6, 30),
     lastDebitedDate: DateTime(2026, 9, 1),
   );

@@ -1,117 +1,117 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-/// Centralized typography styles for the Ezfinanz Mandates application.
+/// Centralized typography styles using GoogleFonts "Inter Tight"
+/// optimized for high information density and clear visual hierarchy.
 class AppTypography {
   AppTypography._();
 
   // App Bar & Main Titles
-  static const TextStyle appBarTitle = TextStyle(
+  static TextStyle appBarTitle = GoogleFonts.interTight(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+    letterSpacing: -0.2,
+  );
+
+  static TextStyle screenHeader = GoogleFonts.interTight(
     fontSize: 20,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     letterSpacing: -0.3,
   );
 
-  static const TextStyle screenHeader = TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w800,
-    color: AppColors.textPrimary,
-    letterSpacing: -0.5,
-  );
-
-  static const TextStyle sectionTitle = TextStyle(
-    fontSize: 16,
+  static TextStyle sectionTitle = GoogleFonts.interTight(
+    fontSize: 14,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
-    letterSpacing: -0.2,
+    letterSpacing: -0.1,
   );
 
   // Financial Amount Hierarchy
-  static const TextStyle amountLarge = TextStyle(
-    fontSize: 28,
+  static TextStyle amountLarge = GoogleFonts.interTight(
+    fontSize: 24,
     fontWeight: FontWeight.w800,
     color: AppColors.textPrimary,
-    letterSpacing: -0.5,
-    fontFeatures: [FontFeature.tabularFigures()],
+    letterSpacing: -0.4,
   );
 
-  static const TextStyle amountCard = TextStyle(
-    fontSize: 20,
+  static TextStyle amountCard = GoogleFonts.interTight(
+    fontSize: 18,
     fontWeight: FontWeight.w800,
-    color: AppColors.textPrimary,
-    letterSpacing: -0.3,
-    fontFeatures: [FontFeature.tabularFigures()],
-  );
-
-  // Card Content: UMRN & Bank
-  static const TextStyle umrnLabel = TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w600,
-    color: AppColors.textTertiary,
-    letterSpacing: 0.8,
-  );
-
-  static const TextStyle umrnValue = TextStyle(
-    fontSize: 13,
-    fontWeight: FontWeight.w700,
-    color: AppColors.textPrimary,
-    letterSpacing: 0.3,
-  );
-
-  static const TextStyle bankName = TextStyle(
-    fontSize: 15,
-    fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     letterSpacing: -0.2,
   );
 
-  static const TextStyle accountNumber = TextStyle(
-    fontSize: 13,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textSecondary,
-    letterSpacing: 0.5,
+  // Card Content: UMRN & Bank (Compact sizes for fitting more cards)
+  static TextStyle umrnLabel = GoogleFonts.interTight(
+    fontSize: 10.5,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textTertiary,
+    letterSpacing: 0.3,
   );
 
-  // Metadata: Date & Labels
-  static const TextStyle metaLabel = TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textTertiary,
+  static TextStyle umrnValue = GoogleFonts.interTight(
+    fontSize: 12.5,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+    letterSpacing: 0.1,
+  );
+
+  static TextStyle bankName = GoogleFonts.interTight(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.textPrimary,
+    letterSpacing: -0.1,
+  );
+
+  static TextStyle accountNumber = GoogleFonts.interTight(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textSecondary,
     letterSpacing: 0.2,
   );
 
-  static const TextStyle metaValue = TextStyle(
-    fontSize: 13,
+  // Metadata: Date & Labels
+  static TextStyle metaLabel = GoogleFonts.interTight(
+    fontSize: 10.5,
     fontWeight: FontWeight.w600,
+    color: AppColors.textTertiary,
+    letterSpacing: 0.1,
+  );
+
+  static TextStyle metaValue = GoogleFonts.interTight(
+    fontSize: 12.5,
+    fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
     letterSpacing: -0.1,
   );
 
   // Status Badge
-  static const TextStyle statusBadge = TextStyle(
-    fontSize: 11,
+  static TextStyle statusBadge = GoogleFonts.interTight(
+    fontSize: 10.5,
     fontWeight: FontWeight.w700,
-    letterSpacing: 0.6,
+    letterSpacing: 0.4,
   );
 
   // Body & Descriptions
-  static const TextStyle bodyMedium = TextStyle(
-    fontSize: 14,
+  static TextStyle bodyMedium = GoogleFonts.interTight(
+    fontSize: 13,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
-    height: 1.4,
+    height: 1.35,
   );
 
-  static const TextStyle bodySmall = TextStyle(
-    fontSize: 12,
+  static TextStyle bodySmall = GoogleFonts.interTight(
+    fontSize: 11.5,
     fontWeight: FontWeight.w400,
     color: AppColors.textTertiary,
-    height: 1.3,
+    height: 1.25,
   );
 
-  static const TextStyle buttonText = TextStyle(
-    fontSize: 15,
+  static TextStyle buttonText = GoogleFonts.interTight(
+    fontSize: 13.5,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.1,
   );

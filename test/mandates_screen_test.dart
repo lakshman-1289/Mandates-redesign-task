@@ -144,7 +144,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
 
       expect(find.byType(MandateCard), findsNWidgets(3));
-      expect(find.text('Your Mandates'), findsOneWidget);
+      expect(find.textContaining('All'), findsOneWidget);
       expect(find.text('Active Mandates'), findsOneWidget);
       expect(find.text('Past & Inactive Mandates'), findsOneWidget);
     });

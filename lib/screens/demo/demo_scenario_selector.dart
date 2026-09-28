@@ -59,14 +59,14 @@ class DemoScenarioSelector extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Evaluation Scenarios',
                       style: AppTypography.screenHeader,
                     ),
-                    SizedBox(height: 2),
+                    const SizedBox(height: 2),
                     Text(
                       'Switch state to verify UI/UX across all edge cases',
                       style: AppTypography.bodySmall,

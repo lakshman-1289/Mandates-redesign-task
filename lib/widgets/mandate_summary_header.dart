@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../app/theme/app_colors.dart';
-import '../app/theme/app_typography.dart';
 
-/// Clean summary header displayed directly beneath the App Bar.
-/// Displays total counts, active vs inactive count badges, and optional filter chips.
+/// Clean summary header with Ezfinanz-inspired segmented filter control
+/// and compact mandate count indicators.
 class MandateSummaryHeader extends StatelessWidget {
   final int totalCount;
   final int activeCount;
@@ -25,88 +25,51 @@ class MandateSummaryHeader extends StatelessWidget {
     if (totalCount == 0) return const SizedBox.shrink();
 
     return Container(
-      color: AppColors.surface,
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Top Title & Summary text
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Expanded(
-                child: Text(
-                  'Your Mandates',
-                  style: AppTypography.screenHeader,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SizedBox(width: 8),
-              // Compact summary badge
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppColors.primarySurface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: AppColors.primaryLight,
-                    width: 1,
-                  ),
-                ),
-                child: Text(
-                  '$activeCount Active${otherCount > 0 ? ' · $otherCount Other' : ''}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          // Show filter chips only when multiple categories exist (to prevent clutter)
-          if (otherCount > 0) ...[
-            const SizedBox(height: 12),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _FilterChip(
-                    label: 'All ($totalCount)',
-                    isSelected: selectedFilter == 'all',
-                    onTap: () => onFilterSelected('all'),
-                  ),
-                  const SizedBox(width: 8),
-                  _FilterChip(
-                    label: 'Active ($activeCount)',
-                    isSelected: selectedFilter == 'active',
-                    onTap: () => onFilterSelected('active'),
-                  ),
-                  const SizedBox(width: 8),
-                  _FilterChip(
-                    label: 'Other ($otherCount)',
-                    isSelected: selectedFilter == 'other',
-                    onTap: () => onFilterSelected('other'),
-                  ),
-                ],
+      color: Colors.transparent,
+      padding: const EdgeInsets.fromLTRB(14, 6, 14, 2),
+      child: Container(
+        padding: const EdgeInsets.all(3.5),
+        decoration: BoxDecoration(
+          color: const Color(0xFFE9EEF5),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: _SegmentTab(
+                label: 'All ($totalCount)',
+                isSelected: selectedFilter == 'all',
+                onTap: () => onFilterSelected('all'),
               ),
             ),
+            Expanded(
+              child: _SegmentTab(
+                label: 'Active ($activeCount)',
+                isSelected: selectedFilter == 'active',
+                onTap: () => onFilterSelected('active'),
+              ),
+            ),
+            if (otherCount > 0)
+              Expanded(
+                child: _SegmentTab(
+                  label: 'Other ($otherCount)',
+                  isSelected: selectedFilter == 'other',
+                  onTap: () => onFilterSelected('other'),
+                ),
+              ),
           ],
-        ],
+        ),
       ),
     );
   }
 }
 
-class _FilterChip extends StatelessWidget {
+class _SegmentTab extends StatelessWidget {
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _FilterChip({
+  const _SegmentTab({
     required this.label,
     required this.isSelected,
     required this.onTap,
@@ -116,23 +79,32 @@ class _FilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 180),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.primary : AppColors.surface,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isSelected ? AppColors.primary : AppColors.border,
-            width: 1.2,
-          ),
+          color: isSelected ? Colors.white : Colors.transparent,
+          borderRadius: BorderRadius.circular(9),
+          boxShadow: isSelected
+              ? const [
+                  BoxShadow(
+                    color: Color(0x10000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 1.5),
+                  ),
+                ]
+              : null,
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-            color: isSelected ? Colors.white : AppColors.textSecondary,
+        child: Center(
+          child: Text(
+            label,
+            style: GoogleFonts.interTight(
+              fontSize: 12.5,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+              color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
+              letterSpacing: -0.1,
+            ),
           ),
         ),
       ),

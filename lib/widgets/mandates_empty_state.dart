@@ -52,7 +52,7 @@ class MandatesEmptyState extends StatelessWidget {
 
             const SizedBox(height: 28),
 
-            const Text(
+            Text(
               'No mandates yet',
               style: AppTypography.screenHeader,
               textAlign: TextAlign.center,
@@ -60,7 +60,7 @@ class MandatesEmptyState extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            const Text(
+            Text(
               'You don\'t have any active or past mandates\nassociated with your account.',
               style: AppTypography.bodyMedium,
               textAlign: TextAlign.center,

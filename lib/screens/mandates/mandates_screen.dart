@@ -208,7 +208,7 @@ class _MandatesScreenState extends State<MandatesScreen> {
           ),
 
           const SliverToBoxAdapter(
-            child: SizedBox(height: 8),
+            child: SizedBox(height: 4),
           ),
 
           // Render List based on filter and grouping
@@ -271,22 +271,22 @@ class _MandatesScreenState extends State<MandatesScreen> {
         // Section: Active Mandates
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(18, 12, 18, 4),
+            padding: const EdgeInsets.fromLTRB(16, 6, 16, 2),
             child: Row(
               children: [
-                const Text('Active Mandates', style: AppTypography.sectionTitle),
-                const SizedBox(width: 8),
+                Text('Active Mandates', style: AppTypography.sectionTitle),
+                const SizedBox(width: 6),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
                   decoration: BoxDecoration(
                     color: AppColors.statusActiveBg,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: AppColors.statusActiveBorder),
                   ),
                   child: Text(
                     '${activeMandates.length}',
                     style: const TextStyle(
-                      fontSize: 11,
+                      fontSize: 10.5,
                       fontWeight: FontWeight.w700,
                       color: AppColors.statusActiveText,
                     ),
@@ -313,22 +313,22 @@ class _MandatesScreenState extends State<MandatesScreen> {
         // Section: Past & Inactive Mandates
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(18, 20, 18, 4),
+            padding: const EdgeInsets.fromLTRB(16, 10, 16, 2),
             child: Row(
               children: [
-                const Text('Past & Inactive Mandates', style: AppTypography.sectionTitle),
-                const SizedBox(width: 8),
+                Text('Past & Inactive Mandates', style: AppTypography.sectionTitle),
+                const SizedBox(width: 6),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
                   decoration: BoxDecoration(
                     color: AppColors.statusInactiveBg,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: AppColors.statusInactiveBorder),
                   ),
                   child: Text(
                     '${otherMandates.length}',
                     style: const TextStyle(
-                      fontSize: 11,
+                      fontSize: 10.5,
                       fontWeight: FontWeight.w700,
                       color: AppColors.statusInactiveText,
                     ),

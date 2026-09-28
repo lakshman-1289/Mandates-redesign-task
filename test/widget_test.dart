@@ -14,7 +14,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Mandates'), findsOneWidget);
-    expect(find.text('Your Mandates'), findsOneWidget);
+    expect(find.textContaining('All'), findsOneWidget);
     expect(find.byType(MandateCard), findsOneWidget);
     expect(find.text('ACTIVE'), findsOneWidget);
     expect(find.text('SBIN702231220003687'), findsOneWidget);

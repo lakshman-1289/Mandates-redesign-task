@@ -18,6 +18,7 @@ class Mandate {
   final DateTime? expiryDate;
   final DateTime? lastDebitedDate;
   final String? bankShortCode;
+  final String? logoAssetPath;
 
   const Mandate({
     required this.id,
@@ -35,6 +36,7 @@ class Mandate {
     this.expiryDate,
     this.lastDebitedDate,
     this.bankShortCode,
+    this.logoAssetPath,
   });
 
   bool get isActive => status == MandateStatus.active;

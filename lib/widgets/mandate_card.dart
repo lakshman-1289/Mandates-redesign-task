@@ -8,10 +8,9 @@ import 'bank_logo_avatar.dart';
 import 'mandate_status_badge.dart';
 
 /// Reusable Mandate Card component.
-/// Strictly implements the required information hierarchy:
-/// 1. Top: UMRN & Status badge
-/// 2. Middle: Bank name & Masked account number
-/// 3. Bottom: Mandate Amount & Registration Date
+/// Optimized for high information density to fit more cards on screen,
+/// with prominent amount sizing, compact secondary details, real bank logos,
+/// and clear visual hierarchy.
 class MandateCard extends StatelessWidget {
   final Mandate mandate;
   final VoidCallback onTap;
@@ -27,24 +26,38 @@ class MandateCard extends StatelessWidget {
     final isActive = mandate.isActive;
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 4.5),
       decoration: BoxDecoration(
-        color: isActive ? AppColors.surface : const Color(0xFFFCFDFE),
-        borderRadius: BorderRadius.circular(16),
+        color: isActive ? Colors.white : const Color(0xFFE8EDF4),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isActive ? AppColors.border : AppColors.borderSubtle,
-          width: 1.2,
+          color: isActive ? AppColors.border : const Color(0xFFD2D9E3),
+          width: 1.0,
         ),
-        boxShadow: isActive ? AppColors.cardShadow : AppColors.cardShadowSubdued,
+        boxShadow: isActive
+            ? const [
+                BoxShadow(
+                  color: Color(0x06000000),
+                  blurRadius: 6,
+                  offset: Offset(0, 2),
+                ),
+              ]
+            : const [
+                BoxShadow(
+                  color: Color(0x04000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 1),
+                ),
+              ],
       ),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
         child: InkWell(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
+            padding: const EdgeInsets.fromLTRB(14, 11, 14, 11),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -60,37 +73,42 @@ class MandateCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Subtle mandate type + UMRN identifier
-                          Text(
-                            '${mandate.mandateType.displayName.toUpperCase()} · UMRN',
-                            style: AppTypography.umrnLabel,
+                          Row(
+                            children: [
+                              Icon(
+                                mandate.mandateType.icon,
+                                size: 12,
+                                color: AppColors.textTertiary,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${mandate.mandateType.displayName.toUpperCase()} · UMRN',
+                                style: AppTypography.umrnLabel,
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 3),
+                          const SizedBox(height: 2),
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             alignment: Alignment.centerLeft,
                             child: Text(
                               mandate.umrn,
-                              style: AppTypography.umrnValue.copyWith(
-                                color: isActive
-                                    ? AppColors.textPrimary
-                                    : AppColors.textSecondary,
-                              ),
+                              style: AppTypography.umrnValue,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    // Current Status (always in top-right for instant scanning)
+                    const SizedBox(width: 8),
+                    // Status Badge (top-right for immediate scanning)
                     MandateStatusBadge(status: mandate.status),
                   ],
                 ),
 
-                const SizedBox(height: 14),
+                const SizedBox(height: 9),
 
                 // ==========================================
-                // 2. MIDDLE SECTION: Bank Name & Masked Account
+                // 2. MIDDLE SECTION: Real Bank Logo & Account
                 // ==========================================
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,40 +116,55 @@ class MandateCard extends StatelessWidget {
                     BankLogoAvatar(
                       bankName: mandate.bankName,
                       shortCode: mandate.bankShortCode,
-                      size: 38,
+                      logoAssetPath: mandate.logoAssetPath,
+                      size: 32,
                     ),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             mandate.bankName,
-                            style: AppTypography.bankName.copyWith(
-                              color: isActive
-                                  ? AppColors.textPrimary
-                                  : AppColors.textSecondary,
-                            ),
+                            style: AppTypography.bankName,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 2),
-                          Text(
-                            'A/C ${mandate.maskedAccountNumber}',
-                            style: AppTypography.accountNumber,
+                          const SizedBox(height: 1),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.account_balance_outlined,
+                                size: 11,
+                                color: AppColors.textTertiary,
+                              ),
+                              const SizedBox(width: 3),
+                              Text(
+                                'A/C ${mandate.maskedAccountNumber}',
+                                style: AppTypography.accountNumber,
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
+                    const Icon(
+                      Icons.chevron_right_rounded,
+                      size: 18,
+                      color: AppColors.textTertiary,
+                    ),
                   ],
                 ),
 
-                const SizedBox(height: 14),
+                const SizedBox(height: 9),
 
-                // Subtle dividing line separating secondary info from primary financial amount
-                const Divider(height: 1, color: AppColors.borderSubtle),
+                // Subtle separating line
+                Divider(
+                  height: 1,
+                  color: isActive ? AppColors.borderSubtle : const Color(0xFFD6DDE7),
+                ),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
 
                 // ==========================================
                 // 3. BOTTOM SECTION: Amount & Registration Date
@@ -140,16 +173,16 @@ class MandateCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Mandate Amount (High Visual Hierarchy)
+                    // Mandate Amount (High visual weight)
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Max Limit',
                             style: AppTypography.metaLabel,
                           ),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 1),
                           FittedBox(
                             fit: BoxFit.scaleDown,
                             alignment: Alignment.centerLeft,
@@ -157,8 +190,8 @@ class MandateCard extends StatelessWidget {
                               CurrencyFormatter.format(mandate.amount),
                               style: AppTypography.amountCard.copyWith(
                                 color: isActive
-                                    ? AppColors.primaryDark
-                                    : AppColors.textSecondary,
+                                    ? AppColors.primary
+                                    : const Color(0xFF334155),
                               ),
                             ),
                           ),
@@ -166,24 +199,31 @@ class MandateCard extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(width: 16),
+                    const SizedBox(width: 12),
 
-                    // Registration Date (Visually secondary)
+                    // Registration Date
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
+                        Text(
                           'Registered',
                           style: AppTypography.metaLabel,
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          DateFormatter.format(mandate.registrationDate),
-                          style: AppTypography.metaValue.copyWith(
-                            color: isActive
-                                ? AppColors.textPrimary
-                                : AppColors.textSecondary,
-                          ),
+                        const SizedBox(height: 1),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.calendar_today_outlined,
+                              size: 11,
+                              color: AppColors.textTertiary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              DateFormatter.format(mandate.registrationDate),
+                              style: AppTypography.metaValue,
+                            ),
+                          ],
                         ),
                       ],
                     ),

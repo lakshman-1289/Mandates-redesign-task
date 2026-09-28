@@ -49,7 +49,7 @@ class MandatesErrorState extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            const Text(
+            Text(
               'Unable to load mandates',
               style: AppTypography.screenHeader,
               textAlign: TextAlign.center,

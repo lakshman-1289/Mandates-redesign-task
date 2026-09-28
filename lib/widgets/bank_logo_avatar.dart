@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import '../app/theme/app_colors.dart';
 
-/// Renders a polished bank avatar with consistent fintech aesthetics.
+/// Renders the real bank logo or falls back to stylized initials.
 class BankLogoAvatar extends StatelessWidget {
   final String bankName;
   final String? shortCode;
+  final String? logoAssetPath;
   final double size;
 
   const BankLogoAvatar({
     super.key,
     required this.bankName,
     this.shortCode,
-    this.size = 38,
+    this.logoAssetPath,
+    this.size = 32,
   });
 
   String _deriveInitials() {
@@ -27,31 +29,51 @@ class BankLogoAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initials = _deriveInitials();
-
     return Container(
       width: size,
       height: size,
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppColors.primarySurface,
-        borderRadius: BorderRadius.circular(size * 0.28),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(size * 0.25),
         border: Border.all(
           color: AppColors.border,
-          width: 1,
+          width: 0.9,
         ),
-      ),
-      child: Center(
-        child: Text(
-          initials,
-          style: TextStyle(
-            fontSize: size * 0.32,
-            fontWeight: FontWeight.w800,
-            color: AppColors.primary,
-            letterSpacing: 0.2,
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x06000000),
+            blurRadius: 3,
+            offset: Offset(0, 1),
           ),
-          maxLines: 1,
-          overflow: TextOverflow.clip,
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size * 0.2),
+        child: logoAssetPath != null && logoAssetPath!.isNotEmpty
+            ? Image.asset(
+                logoAssetPath!,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) => _buildFallback(),
+              )
+            : _buildFallback(),
+      ),
+    );
+  }
+
+  Widget _buildFallback() {
+    final initials = _deriveInitials();
+    return Center(
+      child: Text(
+        initials,
+        style: TextStyle(
+          fontSize: size * 0.32,
+          fontWeight: FontWeight.w800,
+          color: AppColors.primary,
+          letterSpacing: 0.1,
         ),
+        maxLines: 1,
+        overflow: TextOverflow.clip,
       ),
     );
   }
