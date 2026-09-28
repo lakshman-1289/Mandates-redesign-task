@@ -28,24 +28,29 @@ class MandateCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 4.5),
       decoration: BoxDecoration(
-        color: isActive ? Colors.white : const Color(0xFFE8EDF4),
+        color: isActive ? Colors.white : const Color(0xFFEFF3F8),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isActive ? AppColors.border : const Color(0xFFD2D9E3),
+          color: isActive ? const Color(0xFFCCE0FA) : const Color(0xFFDCE3ED),
           width: 1.0,
         ),
         boxShadow: isActive
             ? const [
                 BoxShadow(
-                  color: Color(0x06000000),
-                  blurRadius: 6,
-                  offset: Offset(0, 2),
+                  color: Color(0x0E0B57D0),
+                  blurRadius: 8,
+                  offset: Offset(0, 3),
+                ),
+                BoxShadow(
+                  color: Color(0x04000000),
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
                 ),
               ]
             : const [
                 BoxShadow(
-                  color: Color(0x04000000),
-                  blurRadius: 4,
+                  color: Color(0x03000000),
+                  blurRadius: 3,
                   offset: Offset(0, 1),
                 ),
               ],
@@ -161,7 +166,7 @@ class MandateCard extends StatelessWidget {
                 // Subtle separating line
                 Divider(
                   height: 1,
-                  color: isActive ? AppColors.borderSubtle : const Color(0xFFD6DDE7),
+                  color: isActive ? AppColors.borderSubtle : const Color(0xFFDCE3ED),
                 ),
 
                 const SizedBox(height: 8),

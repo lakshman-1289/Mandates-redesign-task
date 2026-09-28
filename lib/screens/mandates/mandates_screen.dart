@@ -96,61 +96,77 @@ class _MandatesScreenState extends State<MandatesScreen> {
     final activeMandates = _mandates.where((m) => m.isActive).toList();
     final otherMandates = _mandates.where((m) => !m.isActive).toList();
 
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Returning to Auto Pay settings'),
-                  duration: Duration(seconds: 1),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            }
-          },
-          tooltip: 'Back',
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFE4EFFB), // Ezfinanz soft blue ambient header tint
+            Color(0xFFEEF5FD), // Smooth downward fade
+            Color(0xFFF7FAFD), // Clean soft base
+          ],
+          stops: [0.0, 0.35, 1.0],
         ),
-        title: const Text('Mandates'),
-        elevation: 0,
-        actions: [
-          // Discreet Demo Scenario Switcher for evaluation
-          if (mockRepo != null)
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: TextButton.icon(
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.primarySurface,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    side: const BorderSide(color: AppColors.primaryLight),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+            onPressed: () {
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Returning to Auto Pay settings'),
+                    duration: Duration(seconds: 1),
+                    behavior: SnackBarBehavior.floating,
                   ),
-                ),
-                icon: const Icon(Icons.tune_rounded, size: 16, color: AppColors.primary),
-                label: const Text(
-                  'Demo',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
+                );
+              }
+            },
+            tooltip: 'Back',
+          ),
+          title: const Text('Mandates'),
+          actions: [
+            // Discreet Demo Scenario Switcher for evaluation
+            if (mockRepo != null)
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.white.withValues(alpha: 0.85),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: const BorderSide(color: AppColors.primaryLight),
+                    ),
                   ),
-                ),
-                onPressed: () => DemoScenarioSelector.show(
-                  context,
-                  currentScenario: mockRepo.currentScenario,
-                  onScenarioSelected: _onScenarioChanged,
+                  icon: const Icon(Icons.tune_rounded, size: 16, color: AppColors.primary),
+                  label: const Text(
+                    'Demo',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                  onPressed: () => DemoScenarioSelector.show(
+                    context,
+                    currentScenario: mockRepo.currentScenario,
+                    onScenarioSelected: _onScenarioChanged,
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
+        body: _buildBody(activeMandates, otherMandates),
       ),
-      body: _buildBody(activeMandates, otherMandates),
     );
   }
 
